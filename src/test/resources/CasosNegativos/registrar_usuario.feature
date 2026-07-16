@@ -12,7 +12,7 @@ Feature: Registrar usuario
         """
   {
   "nome": "juliana ju",
-  "email": "luigi15@qa.com.br",
+  "email": "luigi18@qa.com.br",
   "password": "teste",
   "administrador": "false"
   }
@@ -29,7 +29,7 @@ Feature: Registrar usuario
         """
   {
   "nome": "luigi",
-  "email": "luigi16@qa.com.br",
+  "email": "luigi18@qa.com.br",
   "password": "tester",
   "administrador": "true"
   }
