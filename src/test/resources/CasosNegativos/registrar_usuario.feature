@@ -29,7 +29,7 @@ Feature: Registrar usuario
         """
   {
   "nome": "luigi",
-  "email": "luigi15@qa.com.br",
+  "email": "luigi16@qa.com.br",
   "password": "tester",
   "administrador": "true"
   }
@@ -38,9 +38,7 @@ Feature: Registrar usuario
     Then status 201
     And match response.message == 'Cadastro realizado com sucesso'
 
-    @caso03
-
-Feature: Validar error al registrar usuario duplicado
+  @caso03
 
   Scenario: Registrar usuario con email ya existente
     Given url 'https://serverest.dev'
@@ -49,5 +47,3 @@ Feature: Validar error al registrar usuario duplicado
     When method post
     Then status 400
     And match response.message == 'Este email já está sendo usado'
-
-
