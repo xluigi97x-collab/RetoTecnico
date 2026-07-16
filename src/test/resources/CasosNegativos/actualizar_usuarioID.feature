@@ -7,7 +7,7 @@ Feature: Actualizar usuario
   @caso01
 
   # ❌ Caso negativo
-  Scenario: Actualizar usuario invalido
+  Scenario: Actualizar usuario invalidoooooo
     * def invalidId = ''
     * path invalidId
     Given request
