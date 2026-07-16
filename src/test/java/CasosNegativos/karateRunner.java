@@ -12,7 +12,7 @@ public class karateRunner {
     @Karate.Test
     Karate registrar() {
         return Karate.run("classpath:CasosNegativos/registrar_usuario.feature")
-                .tags("@caso01");
+                .tags("@caso03");
     }
     @Karate.Test
     Karate buscar_ID() {
