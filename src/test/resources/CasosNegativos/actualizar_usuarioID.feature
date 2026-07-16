@@ -20,7 +20,7 @@ Feature: Actualizar usuario
   }
   """
     When method put
-    Then status 400
+    Then status 405
     And match response.message contains 'Não é possível realizar PUT'
 
   @caso02
