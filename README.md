@@ -1,7 +1,7 @@
-# Reto de Automatización QA - Backend
+# Reto de Automatización
 
 Este proyecto contiene una suite de pruebas automatizadas en **Karate DSL** para validar el API de [ServeRest](https://serverest.dev).  
-Se implementan operaciones CRUD completas (registrar, buscar, actualizar, eliminar, listar) con escenarios positivos y negativos, generación dinámica de datos y reportes automáticos.
+Se implementan operaciones CRUD completas (registrar, buscar, actualizar, eliminar, listar) con escenarios **positivos** y **negativos**, organizados en features y ejecutados mediante runners en Java.
 
 ---
 
@@ -9,123 +9,95 @@ Se implementan operaciones CRUD completas (registrar, buscar, actualizar, elimin
 - Java 11+
 - Maven 3+
 - IDE como IntelliJ IDEA
+
 ---
 
-## ▶️ Cómo ejecutar los tests
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/tuusuario/repo-karate.git
-   cd repo-karate
-   
-mvn test
+## 📂 Estructura del proyecto
 
-target/karate-reports/karate-summary.html
+- `HELPERS/` → Features positivos (Registrar, Buscar, Actualizar, Eliminar, Listar).
+- `CasosNegativos/` → Features negativos (validaciones de error).
+- `HELPERS/karateRunner.java` → Runner para ejecutar escenarios positivos.
+- `CasosNegativos/karateRunner.java` → Runner para ejecutar escenarios negativos.
 
-retoBackEnd/
-│
-├── src/test/java/retoBackEnd/
-│   └── RunnerGeneral.java
-│
-└── src/test/resources/HELPERS/
-├── registrar_usuario.feature
-├── buscar_usuarioID.feature
-├── actualizar_usuarioID.feature
-├── eliminar_usuarioID.feature
-└── listar_usuarios.feature
+---
 
-✅ Casos cubiertos
-- Registrar usuario: creación con email dinámico (UUID) para evitar duplicados.
-- Buscar usuario por ID: validación de existencia.
-- Actualizar usuario: actualización con mismo correo (200) y con correo nuevo (201).
-- Eliminar usuario: borrado exitoso por ID.
-- Listar usuarios: validación de cantidad y esquema.
-- Casos negativos: validaciones de error en email inválido, duplicados, etc.
+## ✅ Casos positivos
 
-🔧 Helpers
-- Cada operación CRUD está encapsulada en un helper:
-- registrar_usuario.feature → devuelve _id y email dinámico.
-- buscar_usuarioID.feature → valida búsqueda por ID.
-- actualizar_usuarioID.feature → actualiza datos del usuario.
-- eliminar_usuarioID.feature → elimina usuario existente.
-- listar_usuarios.feature → lista todos los usuarios.
-- Los helpers se llaman entre sí con call read(...) para reutilizar datos y encadenar operaciones.
+1. **Registrar usuario**
+   - Se crea un usuario con datos válidos.
+   - Se genera un correo dinámico para evitar duplicados.
+   - Se guarda el `id` y el `email` en una variable global para reutilizarlos.
 
-🛡️ Validaciones
-- Status codes esperados (200, 201, 400).
-- Mensajes de respuesta (Cadastro realizado com sucesso, Registro alterado com sucesso, Registro excluído com sucesso).
-- Validaciones de esquema JSON en las respuestas.
+2. **Buscar usuario por ID**
+   - Se obtiene el `id` del registro y se hace un `GET`.
+   - Se valida que el sistema devuelva el mismo `id`.
 
-📝 Notas
-- Los correos se generan dinámicamente con UUID para evitar conflictos.
-- Se incluyen casos negativos (email inválido, duplicado, etc.).
-- Reportes HTML se generan automáticamente en target/karate-reports.
-- Proyecto preparado para ser mostrado en un reto técnico con organización clara y reutilización de código.
+3. **Actualizar usuario**
+   - Se registra un usuario, se obtiene su `id` y se hace un `PUT`.
+   - Se cambian nombre y correo, validando el mensaje de éxito.
 
+4. **Eliminar usuario**
+   - Se registra un usuario, se obtiene su `id` y se hace un `DELETE`.
+   - Se valida el mensaje ‘Registro excluído com sucesso’.
 
+5. **Listar usuarios**
+   - Se hace un `GET /usuarios`.
+   - Se valida que la respuesta contenga la propiedad `quantidade`.
 
+---
 
+## ❌ Casos negativos
 
+1. **Registrar usuario con email duplicado**
+   - Se intenta registrar un usuario con un correo ya existente.
+   - Se valida que la API devuelva error `400` y el mensaje correspondiente.
 
+2. **Buscar usuario inexistente**
+   - Se consulta un `id` inventado.
+   - Se valida que la API responda con ‘Usuário não encontrado’.
 
+3. **Actualizar usuario inválido**
+   - Se intenta hacer un `PUT` sin un `id` válido.
+   - Se valida que la API devuelva `405` y el mensaje de error.
 
+4. **Eliminar usuario inexistente**
+   - Se hace un `DELETE` con un `id` que no existe.
+   - La API responde con status `200` pero aclara que no había registros para borrar.
 
+5. **Listar usuarios con endpoint incorrecto**
+   - Se consulta un endpoint mal escrito.
+   - Se valida que la API devuelva error `400`.
 
-## Reto de Automatización QA - BackEnd
+---
 
-Este proyecto tiene como objetivo automatizar las pruebas de una API de usuarios utilizando Karate DSL. A continuación se detallan los pasos para la configuración del proyecto, estructura, y cómo se han implementado las pruebas para cada uno de los endpoints de la API. Las pruebas serán realizadas para la API de Usuarios de ServeRest (https://serverest.dev/)
+## ▶️ Ejecución con Runners
 
-### Requisitos
-- Java 8 o superior.
-- Karate DSL: Se utilizará Karate para la automatización de las pruebas.
-- Maven para la gestión de dependencias.
-- API de usuarios disponible para pruebas.
+### Runner de positivos (`HELPERS/karateRunner.java`)
+Cada método apunta a un feature positivo y se ejecuta con `@Karate.Test`.  
+Ejemplo:
+@Karate.Test
+Karate registrar() {
+    return Karate.run("classpath:HELPERS/helpregistrar_usuario.feature")
+            .tags("@caso01");
+}
 
-### Instalación
-###### 1. Clonar el repositorio
-Primero, clonar el repositorio en tu máquina local:
+### Runner de negativos (CasosNegativos/karateRunner.java)
+Separado en un paquete distinto para mantener orden entre pruebas positivas y negativas.
+Ejemplo:
+@Karate.Test
+Karate registrar() {
+return Karate.run("classpath:CasosNegativos/registrar_usuario.feature")
+.tags("@caso01");
+}
 
-`git clone https://github.com/DMateo-123/Reto-BackEnd.git `
+## 🚀 Cómo ejecutar los tests
 
-###### 2. Configurar el proyecto
-Instalar las dependencias Maven
+### 1. Clonar el repositorio
+``bash
+git clone https://github.com/tuusuario/repo-karate.git
+cd repo-karate
 
-### Estructura del Proyecto
-La estructura del proyecto es la siguiente:
-
-- src/main/test/java/REST/: Carpeta donde se encuentran los archivos de características (.feature).
-
-- - user-delete.feature: Prueba para eliminar un usuario.
-
-- - user-get.feature: Prueba para listar todos los usuarios.
-
-- - user-getID.feature: Prueba para buscar un usuario por ID.
-
-- - user-post.feature: Prueba para registrar un nuevo usuario.
-
-- - user-put.feature: Prueba para actualizar los datos de un usuario.
-
-### Validaciones
-
-Cada prueba valida que:
-
-- Las respuestas tengan el formato correcto (JSON).
-- El código de estado HTTP sea el esperado.
-- Los valores en la respuesta sean los correctos.
-
-### Ejecución de las Pruebas
-El proyecto está configurado para ejecutar las pruebas utilizando un runner en Java. La clase karateRunner.java contiene el siguiente código para ejecutar las pruebas:
-
-
-
-    import com.intuit.karate.junit5.Karate;
-    
-    public class karateRunner {
-    
-        @Karate.Test
-        Karate testSample() {
-            return Karate.run("classpath:REST");
-        }
-    }
-
-###### Explicación:
-Karate.run("classpath:REST"): Aquí se especifica la ruta del archivo .feature o de la carpeta que contiene las pruebas de Karate. Por ejemplo, si deseas ejecutar el archivo user-get.feature en específico, la ruta sería "classpath:REST/user-get.feature".
+### 2. Ejecutar directamente desde IntelliJ
+   - Abrir el archivo karateRunner.java.
+   - Seleccionar el método que quieras correr (ej: registrar, buscar_ID).
+   - Clic derecho → Run 'registrar()'.
