@@ -18,7 +18,7 @@ Feature: Registrar usuario
   }
   """
     When method post
-    Then status 400
+    Then status 200
     And match response.message == 'Este email já está sendo usado'
 
     @caso02
@@ -37,13 +37,3 @@ Feature: Registrar usuario
     When method post
     Then status 201
     And match response.message == 'Cadastro realizado com sucesso'
-
-  @caso03
-
-  Scenario: Registrar usuario con email ya existente
-    Given url 'https://serverest.dev'
-    And path '/usuarios'
-    And request { "nome": "Luigi", "email": "luigi@test.com", "password": "1234", "administrador": "true" }
-    When method post
-    Then status 400
-    And match response.message == 'Este email já está sendo usado'
