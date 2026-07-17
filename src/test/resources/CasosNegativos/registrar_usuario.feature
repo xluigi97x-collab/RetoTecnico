@@ -18,7 +18,7 @@ Feature: Registrar usuario
   }
   """
     When method post
-    Then status 200
+    Then status 400
     And match response.message == 'Este email já está sendo usado'
 
     @caso02

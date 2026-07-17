@@ -14,6 +14,7 @@ Feature: Buscar usuario por ID
     When status 400
     Then match response.message == 'Usuário não encontrado'
 
+
   @caso02
 
   # ✅ Caso positivo -- puedo colocal el ID--mv0pcMSRxMwHL4PC  --id no existente zXyiDJUgsUO5hGTO
