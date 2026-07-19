@@ -9,7 +9,7 @@ public class karateRunner1 {
         return Karate.run("classpath:CasosPositivos");
     }
     /**
-     mvn test "-Dtest=karateRunner" "-Dkarate.options=classpath:CasosPositivos"
+mvn test "-Dtest=karateRunner" "-Dkarate.options=classpath:CasosPositivos"
 
     @Karate.Test
     Karate listar() {
