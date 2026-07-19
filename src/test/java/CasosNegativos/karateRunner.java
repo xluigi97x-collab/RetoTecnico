@@ -5,6 +5,11 @@ import com.intuit.karate.junit5.Karate;
 public class karateRunner {
 
     @Karate.Test
+    Karate CasosNegativos() {
+        return Karate.run("classpath:CasosNegativos");
+    }
+/**
+    @Karate.Test
     Karate listar() {
         return Karate.run("classpath:CasosNegativos/listar_usuarios.feature")
                 .tags("@caso01");
@@ -28,5 +33,5 @@ public class karateRunner {
     Karate eliminar_ID() {
         return Karate.run("classpath:CasosNegativos/eliminar_usuarioID.feature")
                 .tags("@caso01");
-    }
+    }**/
 }

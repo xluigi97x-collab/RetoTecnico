@@ -12,7 +12,7 @@ Feature: Registrar usuario
         """
   {
   "nome": "juliana ju",
-  "email": "luigi20@qa.com.br",
+  "email": "luigi27@qa.com.br",
   "password": "teste",
   "administrador": "false"
   }
@@ -21,19 +21,19 @@ Feature: Registrar usuario
     Then status 400
     And match response.message == 'Este email já está sendo usado'
 
-    @caso02
+#    @caso02
 
   # ✅ Caso positivo -- ID=7wYHlQ3knwpRFdyz
-  Scenario: Registrar usuario válido
-    Given request
-        """
-  {
-  "nome": "luigi",
-  "email": "luigi19@qa.com.br",
-  "password": "tester",
-  "administrador": "true"
-  }
-  """
-    When method post
-    Then status 201
-    And match response.message == 'Cadastro realizado com sucesso'
+#  Scenario: Registrar usuario válido
+#    Given request
+#        """
+#  {
+#  "nome": "luigi",
+#  "email": "luigi19@qa.com.br",
+#  "password": "tester",
+#  "administrador": "true"
+#  }
+#  """
+#    When method post
+#    Then status 201
+#    And match response.message == 'Cadastro realizado com sucesso'

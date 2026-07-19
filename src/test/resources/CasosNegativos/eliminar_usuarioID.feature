@@ -14,12 +14,12 @@ Feature: Eliminar usuario
     When status 200
     Then match response.message == 'Nenhum registro excluído'
 
-  @caso02
+#  @caso02
 
   # ✅ Caso positivo
-  Scenario: Eliminar usuario existente
-    * def userId = 'ES6ZhEZKPrA3NbCN'
-    * path userId
-    Given method delete
-    When status 200
-    Then match response.message == 'Registro excluído com sucesso'
+ # Scenario: Eliminar usuario existente
+  #  * def userId = 'ES6ZhEZKPrA3NbCN'
+   # * path userId
+    #Given method delete
+   # When status 200
+   # Then match response.message == 'Registro excluído com sucesso'

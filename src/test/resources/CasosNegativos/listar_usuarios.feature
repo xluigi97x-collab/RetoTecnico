@@ -13,10 +13,10 @@ Feature: Listar usuarios
     When status 400
     And match response.id == 'id deve ter exatamente 16 caracteres alfanuméricos'
 
-  @caso02
+#  @caso02
 
   # ✅ Caso positivo
-  Scenario: Obtener lista de usuarios correctamente
-    Given method get
-    When status 200
-    Then match response contains { "quantidade": "#number" }
+#  Scenario: Obtener lista de usuarios correctamente
+#    Given method get
+#    When status 200
+#    Then match response contains { "quantidade": "#number" }

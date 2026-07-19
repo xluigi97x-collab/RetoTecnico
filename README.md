@@ -14,9 +14,9 @@ Se implementan operaciones CRUD completas (registrar, buscar, actualizar, elimin
 
 ## 📂 Estructura del proyecto
 
-- `HELPERS/` → Features positivos (Registrar, Buscar, Actualizar, Eliminar, Listar).
+- `CasosPositivos/` → Features positivos (Registrar, Buscar, Actualizar, Eliminar, Listar).
 - `CasosNegativos/` → Features negativos (validaciones de error).
-- `HELPERS/karateRunner.java` → Runner para ejecutar escenarios positivos.
+- `CasosPositivos/karateRunner.java` → Runner para ejecutar escenarios positivos.
 - `CasosNegativos/karateRunner.java` → Runner para ejecutar escenarios negativos.
 
 ---
@@ -72,12 +72,12 @@ Se implementan operaciones CRUD completas (registrar, buscar, actualizar, elimin
 
 ## ▶️ Ejecución con Runners
 
-### Runner de positivos (`HELPERS/karateRunner.java`)
+### Runner de positivos (`CasosPositivos/karateRunner.java`)
 Cada método apunta a un feature positivo y se ejecuta con `@Karate.Test`.  
 Ejemplo:
 @Karate.Test
 Karate registrar() {
-    return Karate.run("classpath:HELPERS/helpregistrar_usuario.feature")
+    return Karate.run("classpath:CasosPositivos/helpregistrar_usuario.feature")
             .tags("@caso01");
 }
 

@@ -91,6 +91,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
                         <include>**/*TestRunner.java</include>
+                        <include>**/karateRunner.java</include>
                     </includes>
                     <!-- Esta línea asegura que los fallos marquen rojo en Actions -->
                     <testFailureIgnore>false</testFailureIgnore>
