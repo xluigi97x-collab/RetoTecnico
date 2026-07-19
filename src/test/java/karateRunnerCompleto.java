@@ -7,3 +7,6 @@ public class karateRunnerCompleto {
         return Karate.run("classpath:CasosNegativos", "classpath:CasosPositivos");
     }
 }
+/**
+ mvn test "-Dtest=karateRunnerCompleto"
+ **/

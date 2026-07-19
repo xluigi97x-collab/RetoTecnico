@@ -9,7 +9,9 @@ public class karateRunner {
         return Karate.run("classpath:CasosNegativos");
     }
 /**
-    @Karate.Test
+ mvn test "-Dtest=karateRunner" "-Dkarate.options=classpath:CasosNegativos"
+
+ @Karate.Test
     Karate listar() {
         return Karate.run("classpath:CasosNegativos/listar_usuarios.feature")
                 .tags("@caso01");
